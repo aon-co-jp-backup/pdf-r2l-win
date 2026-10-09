@@ -1,48 +1,19 @@
 # pdf-r2l
 
-PDFの綴じ方向をR2L(Right-to-Left)に変えるためのツールです．
+PDFの綴じ方向(右綴じ R2L / 左綴じ L2R)を変更する Windows GUI アプリです。
+[ottijp/pdf-r2l](https://github.com/ottijp/pdf-r2l)(Java CLI)を Rust で作り直したものです。
 
-## 使い方（Dockerを使う場合）
-
-```
-$ docker run --rm -v "$PWD":/work ottijp/pdf-r2l pdf-r2l R2L book.pdf book-r2l.pdf
-```
-
-`R2L`の部分を`L2R`にすると，Left-to-Rightに変更もできます．
-
-## 使い方（Homebrewを使う場合）
-
-```
-$ brew install ottijp/tap/pdf-r2l
-$ pdf-r2l R2L book.pdf book-r2l.pdf
-```
-
-`R2L`の部分を`L2R`にすると，Left-to-Rightに変更もできます．
+## 使い方
+`pdf-r2l-setup.exe` でインストール後、PDFを選択(またはドラッグ&ドロップ)し、
+右綴じ/左綴じを選んで「変換して保存…」を押します。
 
 ## 開発
-
-### ビルド
-
 ```
-$ make build
+cargo test
+cargo build --release
+"C:\Program Files (x86)\Inno Setup 6\ISCC.exe" installer\pdf-r2l.iss   # dist\pdf-r2l-setup.exe
 ```
-
-### ローカルでの実行
-
-```
-$ make run ARGS="R2L book.pdf book-r2l.pdf"
-```
-
-### Dockerイメージのビルド
-
-```
-$ make docker-build
-```
-
-## ライブラリ
-
-このツールは[iText 7 Community](https://itextpdf.com/ja/products/itext-7/itext-7-community)を使っています．
+PDF処理は[lopdf](https://crates.io/crates/lopdf)、GUIは[egui](https://github.com/emilk/egui)。
 
 ## LICENSE
-
-AGPL v3
+AGPL v3(元リポジトリを継承)

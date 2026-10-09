@@ -1,0 +1,16 @@
+[package]
+name = "pdf-r2l"
+version = "1.0.0"
+edition = "2021"
+license = "AGPL-3.0-only"
+description = "PDFの綴じ方向(R2L/L2R)を変更するWindows GUIアプリ"
+
+[dependencies]
+lopdf = "0.34"
+eframe = "0.29"
+rfd = "0.15"
+
+[profile.release]
+opt-level = "s"
+lto = true
+strip = true
