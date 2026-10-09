@@ -1,12 +1,15 @@
 #![windows_subsystem = "windows"]
 use eframe::egui;
-use pdf_r2l::{convert, Mode};
+use pdf_r2l_win::{convert, Mode};
 use std::path::PathBuf;
+
+const LICENSES: &str = include_str!("../LICENSES.txt");
 
 struct App {
     src: Option<PathBuf>,
     mode: Mode,
     msg: String,
+    show_license: bool,
 }
 
 fn setup_fonts(ctx: &egui::Context) {
@@ -53,6 +56,14 @@ impl eframe::App for App {
                 self.src = Some(f);
             }
         });
+        egui::Window::new("ライセンス / License")
+            .open(&mut self.show_license)
+            .default_size([560.0, 400.0])
+            .show(ctx, |ui| {
+                egui::ScrollArea::both().show(ui, |ui| {
+                    ui.add(egui::Label::new(egui::RichText::new(LICENSES.trim_start_matches('\u{feff}')).monospace().size(11.0)).wrap_mode(egui::TextWrapMode::Extend));
+                });
+            });
         egui::CentralPanel::default().show(ctx, |ui| {
             ui.heading("PDF 綴じ方向変更");
             ui.add_space(8.0);
@@ -75,6 +86,10 @@ impl eframe::App for App {
             }
             ui.add_space(8.0);
             ui.label(&self.msg);
+            ui.add_space(8.0);
+            if ui.button("ライセンス / License").clicked() {
+                self.show_license = true;
+            }
         });
     }
 }
@@ -89,7 +104,7 @@ fn main() -> eframe::Result {
         opts,
         Box::new(|cc| {
             setup_fonts(&cc.egui_ctx);
-            Ok(Box::new(App { src: None, mode: Mode::R2L, msg: String::new() }))
+            Ok(Box::new(App { src: None, mode: Mode::R2L, msg: String::new(), show_license: false }))
         }),
     )
 }
