@@ -1,3 +1,3 @@
 source: aon-co-jp/pdf-r2l-win
-commit: d3359ec37aae5ef224b3bc525fa1a0243f83b645
-updated: 2026-11-25T04:56:01Z
+commit: d94347a4191e9c3487ad7b8771e12ad44f38fc8b
+updated: 2026-11-25T05:51:46Z
